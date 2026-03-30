@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Felipe Peñaranda — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="static/style/home.css">
+  <link rel="stylesheet" href="static/style/supply-flow.css">
+</head>
+<body>
+
+  <div id="nav-placeholder"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="tag">Software Engineering · Backend Focus</div>
+    <h1>Felipe <em>Peñaranda</em></h1>
+    <p class="subtitle">Building systems that solve real problems — from the inside out.</p>
+    <div class="hero-links">
+      <a href="https://github.com/code-felipe" target="_blank" class="hero-link primary">
+        <i class="fa-brands fa-github"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/felipephe/" target="_blank" class="hero-link secondary">
+        <i class="fa-brands fa-linkedin"></i> LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <main class="index-main">
+
+    <!-- ABOUT -->
+    <section aria-labelledby="about-heading">
+      <div class="section-label" id="about-heading">About</div>
+      <p class="about-text">
+        I'm <strong>Felipe Peñaranda</strong>, a Software Engineering student at
+        <strong>Western Governors University</strong> with an AAS in Computer Information
+        Technology from JCTC. I work full-time as a <strong>Laptop Repair &amp; Diagnosis
+        Technician</strong> while building my path into software development.
+        My focus is <span class="accent">backend engineering</span>, I'm drawn to
+        the logic behind systems: how data moves, how requests are validated, how
+        workflows can be structured to actually work. I don't just learn from
+        tutorials. I build things that <span class="accent2">solve real problems</span>
+        I've lived firsthand.
+      </p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section aria-labelledby="projects-heading">
+      <div class="section-label" id="projects-heading">Projects</div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <span class="project-card-tag">Spring Boot · Thymeleaf · JPA · Spring Security</span>
+          <h3>SupplyFlow</h3>
+          <p>
+            A role-based supply request management system built from a real workflow
+            problem observed in a housekeeping environment. Features invitation-based
+            onboarding, AJAX product search, and JavaMail email notifications.
+          </p>
+          <div class="project-card-links">
+            <a href="supply-flow.html" class="primary">Case Study →</a>
+            <a href="https://github.com/code-felipe/supplyflow" target="_blank" class="ghost">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card blue">
+          <span class="project-card-tag">Spring Boot · REST API · JWT · Lombok</span>
+          <h3>StockFlow</h3>
+          <p>
+            A REST API backend for inventory and stock management with JWT
+            authentication. Built as a follow-up to SupplyFlow, applying cleaner
+            patterns and Lombok to reduce boilerplate from the ground up.
+          </p>
+          <div class="project-card-links">
+            <a href="stock-flow.html" class="primary">View Project →</a>
+            <a href="https://github.com" target="_blank" class="ghost">GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section aria-labelledby="skills-heading">
+      <div class="section-label" id="skills-heading">Skills</div>
+      <div class="skills-categories">
+
+        <div class="skill-group">
+          <h4>Backend</h4>
+          <ul>
+            <li>Java</li>
+            <li>Spring Boot</li>
+            <li>Spring Security</li>
+            <li>Spring Data JPA</li>
+            <li>REST APIs</li>
+            <li>JWT Authentication</li>
+            <li>JavaMail</li>
+          </ul>
+        </div>
+
+        <div class="skill-group blue">
+          <h4>Frontend</h4>
+          <ul>
+            <li>HTML5 / CSS3</li>
+            <li>JavaScript</li>
+            <li>Thymeleaf</li>
+            <li>jQuery / AJAX</li>
+            <li>Bootstrap</li>
+            <li>Responsive Design</li>
+          </ul>
+        </div>
+
+        <div class="skill-group neutral">
+          <h4>Tools</h4>
+          <ul>
+            <li>Git / GitHub</li>
+            <li>MySQL</li>
+            <li>IntelliJ IDEA</li>
+            <li>Maven</li>
+            <li>Postman</li>
+            <li>VS Code</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Felipe Peñaranda &mdash; Software Engineering Student &middot; WGU &middot; Louisville, KY
+  </footer>
+
+  <script src="static/js/nav.js"> </script>
+
+</body>
+</html>

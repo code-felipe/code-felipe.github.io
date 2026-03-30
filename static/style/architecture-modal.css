@@ -1,0 +1,93 @@
+/* === MODAL === */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  padding: 1.5rem;
+  max-height: 90vh;
+  overflow-y: auto; 
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.modal-close:hover { color: var(--text-heading); }
+
+.modal-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+.modal-architecture-card {
+  background: transparent;
+  /* border: 1px solid var(--border); */
+  /* border-radius: 8px; */
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-align: center;
+}
+
+.modal-architecture-card i {
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.modal-architecture-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.modal-architecture-card strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-heading);
+  font-size: 0.9rem;
+}
+
+.modal-architecture-card ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.modal-architecture-card ul li::before {
+  content: "· ";
+}
