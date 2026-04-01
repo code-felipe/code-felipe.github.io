@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockFlow — The Story Behind the Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+  <style>
+    /* ── CSS VARIABLES ── */
+    :root {
+      --bg: #0d0f14;
+      --bg-surface: #13161e;
+      --bg-card: #181c26;
+      --bg-card-alt: #111420;
+      --accent: #4fc3f7;
+      --accent2: #81d4a0;
+      --accent3: #f0a05a;
+      --text-heading: #e8eaf0;
+      --text-body: #9aa3b8;
+      --text-muted: #5c6478;
+      --border: #1e2230;
+      --border-accent: #2a3045;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+      --radius: 6px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    /* ── HEADER ── */
+    header {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--text-heading);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-child { border-bottom: none; }
+
+    section h2 {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      color: var(--text-heading);
+      margin-bottom: 1.25rem;
+    }
+
+    section p { color: var(--text-body); margin-bottom: 0.5rem; }
+
+    /* ── ARTICLES ── */
+    article {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    article.blue-accent {
+      background: var(--bg-card-alt);
+      border-color: #1e2d40;
+    }
+
+    article h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--text-heading);
+      margin-bottom: 0.4rem;
+    }
+
+    .article-sub {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── LEARNING TITLE + ICON ROW ── */
+    .learning_title_img,
+    .art_dto_title_img,
+    .art_jpa_title_img,
+    .art_invite_title_img,
+    .art_architecture_title_img,
+    .art_swagger_title_img,
+    .art_filter_title_img,
+    .art_lombok_title_img {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .learnings_img_btn_box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .learnings_img_btn_box i {
+      font-size: 1.6rem;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    .learnings_img_btn_box button {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .learnings_img_btn_box button:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* ── PROBLEM BOX ── */
+    .problem_box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .problem_img_box_grid figure {
+      margin-top: 1.25rem;
+    }
+
+    .problem_img_box_grid img {
+      width: 100%;
+      border-radius: var(--radius);
+      opacity: 0.7;
+    }
+
+    /* ── STAT PILLS ── */
+    .stat-pill {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      background: #0e1825;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin: 0.5rem 0.35rem 0 0;
+    }
+
+    /* ── STYLED LIST ── */
+    ul.styled {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.styled li {
+      padding: 0.4rem 0 0.4rem 1.4rem;
+      position: relative;
+      color: var(--text-body);
+    }
+
+    ul.styled li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-family: var(--font-mono);
+    }
+
+    /* ── CODE BLOCKS ── */
+    pre {
+      border-radius: var(--radius);
+      overflow-x: auto;
+      margin-top: 1.25rem;
+      border: 1px solid var(--border-accent);
+    }
+
+    code {
+      font-family: var(--font-mono);
+    }
+
+    /* ── BLOCKQUOTE ── */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--text-heading);
+      background: var(--bg-card);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .closing-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2rem;
+    }
+
+    /* ── BADGE ── */
+    .status-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      background: #1a2210;
+      border: 1px solid var(--accent2);
+      color: var(--accent2);
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ENDPOINT TABLE ── */
+    .endpoint-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .endpoint-table th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      background: #0a0d14;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .endpoint-table td {
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-body);
+    }
+
+    .endpoint-table tr:last-child td { border-bottom: none; }
+
+    .method {
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.68rem;
+    }
+
+    .method.get    { background: #0e2216; color: #4ade80; }
+    .method.post   { background: #1a1808; color: #facc15; }
+    .method.put    { background: #0d1a2a; color: var(--accent); }
+    .method.delete { background: #220d0d; color: #f87171; }
+
+    /* ── DOMAIN MODEL GRID ── */
+    .domain-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .domain-card {
+      background: #0a0d14;
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+    }
+
+    .domain-card h4 {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .domain-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .domain-card ul li {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      padding: 0.15rem 0;
+    }
+
+    .domain-card ul li span.field-type {
+      color: var(--accent3);
+      margin-left: 0.4rem;
+    }
+
+    @media (max-width: 600px) {
+      .domain-grid { grid-template-columns: 1fr; }
+      header, main { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+  <header>
+    <div class="tag">Case Study · Spring Boot REST API</div>
+    <h1>StockFlow — <em>The Story</em><br>Behind the Code</h1>
+    <p class="subtitle">A REST API built to understand what a real backend actually does under the hood. <span class="status-badge">In Development</span></p>
+  </header>
+
+  <main>
+
+    <!-- WHY I BUILT THIS -->
+    <section class="intro" aria-labelledby="why-heading">
+      <h2 id="why-heading">Why I built this</h2>
+      <p>
+        SupplyFlow taught me how to think in layers — controllers, services, repositories. But it was a full-stack monolith, tightly coupled to Thymeleaf and a browser. When I started StockFlow, I had one goal: strip all of that away and learn what it really means to design a backend that speaks JSON.
+      </p>
+      <p style="margin-top:1rem;">
+        No views. No form submissions. Just HTTP, resources, and contracts. StockFlow is where I learned to think like an API.
+      </p>
+    </section>
+
+    <!-- THE PROBLEM -->
+    <section class="problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">What it solves</h2>
+      <p>Any product-driven system — e-commerce, inventory management, catalog tools — needs a reliable backend layer to handle:</p>
+      <article class="problem_box">
+        <ul class="styled" style="margin-bottom:1rem;">
+          <li>Managing thousands of products without losing track of what's active vs. deleted</li>
+          <li>Filtering catalogs dynamically: by name, price range, or stock availability</li>
+          <li>Keeping inventory records separate from product data but always in sync</li>
+          <li>Returning clean, predictable JSON responses that any frontend can consume</li>
+        </ul>
+      </article>
+      <p>
+        StockFlow answers those needs with a structured REST API — clean endpoints, validated inputs, layered architecture, and soft deletion that preserves history without cluttering the active catalog.
+      </p>
+      <div>
+        <span class="stat-pill">Full CRUD lifecycle</span>
+        <span class="stat-pill">Dynamic filtering</span>
+        <span class="stat-pill">Soft deletion</span>
+        <span class="stat-pill">Pagination & sorting</span>
+      </div>
+    </section>
+
+    <!-- WHAT I LEARNED -->
+    <section class="learnings" aria-labelledby="learned-heading">
+      <h2 id="learned-heading">What I learned building it</h2>
+
+      <!-- REST Design -->
+      <article aria-labelledby="art-rest">
+        <div class="learning_title_img">
+          <h3 id="art-rest">REST API Design</h3>
+          <div class="learnings_img_btn_box">
+            <i class="fa-solid fa-plug"></i>
+          </div>
+        </div>
+        <span class="article-sub">Learning what "RESTful" actually means in practice</span>
+        <p>
+          I'd heard the term REST API a hundred times. Building one from scratch is when you understand why it matters. Every decision — URL structure, HTTP verbs, status codes, response shape — is a contract with whoever calls your API.
+        </p>
+        <p style="margin-top:0.9rem;">
+          I used <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@RestController</code> with <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">ResponseEntity</code> wrappers to control exactly what comes back — the status code, the body, the shape. A <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">200 OK</code> with an empty list is not the same as a <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">404 Not Found</code>, even if both "have no data."
+        </p>
+
+        <table class="endpoint-table" style="margin-top:1.5rem;">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td>/api/products</td>
+              <td>List all active products (paginated)</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td>/api/products/{id}</td>
+              <td>Get a single product by ID</td>
+            </tr>
+            <tr>
+              <td><span class="method post">POST</span></td>
+              <td>/api/products</td>
+              <td>Create a new product</td>
+            </tr>
+            <tr>
+              <td><span class="method put">PUT</span></td>
+              <td>/api/products/{id}</td>
+              <td>Update an existing product</td>
+            </tr>
+            <tr>
+              <td><span class="method delete">DELETE</span></td>
+              <td>/api/products/{id}</td>
+              <td>Soft-delete a product</td>
+            </tr>
+            <tr>
+              <td><span class="method get">GET</span></td>
+              <td>/api/products/search</td>
+              <td>Filter by name, price, stock range</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <pre style="font-size:0.60rem; margin-top:1.25rem;"><code class="language-java">
+@GetMapping("/{id}")
+public ResponseEntity&lt;ProductResponseDTO&gt; getById(@PathVariable Long id) {
+    return productService.findActiveById(id)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+}
+
+@PostMapping
+public ResponseEntity&lt;ProductResponseDTO&gt; create(
+        @Valid @RequestBody ProductRequestDTO dto) {
+    ProductResponseDTO created = productService.create(dto);
+    URI location = URI.create("/api/products/" + created.getId());
+    return ResponseEntity.created(location).body(created);
+}
+        </code></pre>
+      </article>
+
+      <!-- Dynamic Filtering -->
+      <article aria-labelledby="art-filter" class="blue-accent">
+        <div class="art_filter_title_img">
+          <h3 id="art-filter">Dynamic Filtering with Specifications</h3>
+          <div class="learnings_img_btn_box">
+            <i class="fa-solid fa-filter"></i>
+          </div>
+        </div>
+        <span class="article-sub">Building search that actually scales</span>
+        <p>
+          A hardcoded query works until someone adds a fourth filter parameter. I needed something composable — filters you can stack or skip depending on what the client sends.
+        </p>
+        <p style="margin-top:0.9rem;">
+          The solution was JPA Specification. Each filter (name, price range, stock range) is its own predicate. They get combined at query time only when the parameter is present. The result: one endpoint, flexible behavior, no conditional query explosion.
+        </p>
+        <p style="margin-top:0.9rem; font-style: italic; color: var(--text-muted);">
+          "I had to understand LEFT JOIN vs INNER JOIN in JPA, because products without inventory records would silently disappear from results. A LEFT JOIN keeps them visible — returning null for stock instead of dropping the row entirely."
+        </p>
+        <pre style="font-size:0.60rem; margin-top:1rem;"><code class="language-java">
+// ProductSpecification.java
+public class ProductSpecification {
+
+    public static Specification&lt;Product&gt; nameLike(String name) {
+        return (root, query, cb) -&gt;
+            name == null ? null :
+            cb.like(cb.lower(root.get("name")),
+                    "%" + name.toLowerCase() + "%");
+    }
+
+    public static Specification&lt;Product&gt; priceBetween(
+            BigDecimal min, BigDecimal max) {
+        return (root, query, cb) -&gt; {
+            if (min == null && max == null) return null;
+            if (min == null) return cb.lessThanOrEqualTo(root.get("price"), max);
+            if (max == null) return cb.greaterThanOrEqualTo(root.get("price"), min);
+            return cb.between(root.get("price"), min, max);
+        };
+    }
+
+    public static Specification&lt;Product&gt; stockBetween(
+            Integer minStock, Integer maxStock) {
+        return (root, query, cb) -&gt; {
+            Join&lt;Product, Inventory&gt; inv =
+                root.join("inventory", JoinType.LEFT);
+            if (minStock == null && maxStock == null) return null;
+            if (minStock == null)
+                return cb.lessThanOrEqualTo(inv.get("quantity"), maxStock);
+            if (maxStock == null)
+                return cb.greaterThanOrEqualTo(inv.get("quantity"), minStock);
+            return cb.between(inv.get("quantity"), minStock, maxStock);
+        };
+    }
+}
+        </code></pre>
+        <p style="margin-top:1rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">
+          Example: <span style="color: var(--accent);">GET /api/products?name=ring&minPrice=10&maxPrice=50&page=0&size=10</span>
+        </p>
+      </article>
+
+      <!-- Domain Model -->
+      <article aria-labelledby="art-domain">
+        <div class="art_dto_title_img">
+          <h3 id="art-domain">Domain Model & DTOs</h3>
+          <div class="learnings_img_btn_box">
+            <i class="fa-solid fa-database"></i>
+          </div>
+        </div>
+        <span class="article-sub">Separating what you store from what you expose</span>
+        <p>
+          In SupplyFlow I built every DTO by hand, constructor and all. In StockFlow I used Lombok — a single <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@Builder</code> annotation replaces 40+ lines of boilerplate. But more importantly, I understood <em>why</em> the separation exists: your database model and your API contract are different things and they should stay that way.
+        </p>
+
+        <div class="domain-grid">
+          <div class="domain-card">
+            <h4>Product</h4>
+            <ul>
+              <li>id <span class="field-type">Long</span></li>
+              <li>name <span class="field-type">String</span></li>
+              <li>sku <span class="field-type">String</span></li>
+              <li>description <span class="field-type">String</span></li>
+              <li>price <span class="field-type">BigDecimal</span></li>
+              <li>isActive <span class="field-type">Boolean</span></li>
+              <li>createdAt <span class="field-type">LocalDateTime</span></li>
+              <li>inventory <span class="field-type">Inventory</span></li>
+            </ul>
+          </div>
+          <div class="domain-card">
+            <h4>Inventory</h4>
+            <ul>
+              <li>id <span class="field-type">Long</span></li>
+              <li>quantity <span class="field-type">Integer</span></li>
+              <li>updatedAt <span class="field-type">LocalDateTime</span></li>
+              <li>product <span class="field-type">Product</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <pre style="font-size:0.60rem; margin-top:1.25rem;"><code class="language-java">
+// Lombok replaces all the boilerplate from SupplyFlow
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductResponseDTO {
+    private Long id;
+    private String name;
+    private String sku;
+    private BigDecimal price;
+    private Integer stock;       // flattened from Inventory
+    private Boolean isActive;
+    private LocalDateTime createdAt;
+}
+
+// Mapper: entity → DTO
+public ProductResponseDTO toDTO(Product p) {
+    Integer stock = (p.getInventory() != null)
+        ? p.getInventory().getQuantity() : null;
+
+    return ProductResponseDTO.builder()
+        .id(p.getId())
+        .name(p.getName())
+        .sku(p.getSku())
+        .price(p.getPrice())
+        .stock(stock)
+        .isActive(p.getIsActive())
+        .createdAt(p.getCreatedAt())
+        .build();
+}
+        </code></pre>
+      </article>
+
+      <!-- Soft Deletion -->
+      <article aria-labelledby="art-softdelete" class="blue-accent">
+        <div class="art_jpa_title_img">
+          <h3 id="art-softdelete">Soft Deletion</h3>
+          <div class="learnings_img_btn_box">
+            <i class="fa-solid fa-trash-can-arrow-up"></i>
+          </div>
+        </div>
+        <span class="article-sub">Delete without losing history</span>
+        <p>
+          A real DELETE removes data forever. In most business systems, that's the wrong move — you might need to audit past orders, reference a deactivated product, or simply undo a mistake. Soft deletion solves this with a flag instead of a row removal.
+        </p>
+        <p style="margin-top:0.9rem;">
+          Every product has an <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">isActive</code> boolean. "Deleting" a product sets it to <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">false</code>. The repository always filters by <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">isActive = true</code> by default — so deactivated records become invisible to the catalog without being gone from the database.
+        </p>
+        <pre style="font-size:0.60rem; margin-top:1rem;"><code class="language-java">
+// Repository: only return active products
+@Query("SELECT p FROM Product p WHERE p.isActive = true")
+Page&lt;Product&gt; findAllActive(Pageable pageable);
+
+// Service: soft delete
+@Override
+@Transactional
+public void softDelete(Long id) {
+    Product product = productDao.findById(id)
+        .orElseThrow(() -&gt; new ResourceNotFoundException(
+            "Product not found: " + id));
+
+    product.setIsActive(false);
+    productDao.save(product);
+}
+        </code></pre>
+      </article>
+
+      <!-- Validation + Exception Handling -->
+      <article aria-labelledby="art-validation">
+        <div class="learning_title_img">
+          <h3 id="art-validation">Validation & Exception Handling</h3>
+          <div class="learnings_img_btn_box">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+        </div>
+        <span class="article-sub">Controlling what breaks and how it breaks</span>
+        <p>
+          In a REST API, the response <em>is</em> the UI. When something goes wrong, the error body is the only feedback the client gets. I used Bean Validation (<code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@NotNull</code>, <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@NotBlank</code>, <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@Positive</code>) on request DTOs and a centralized <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@ControllerAdvice</code> to convert every exception into a consistent JSON structure.
+        </p>
+        <p style="margin-top:0.9rem; font-style: italic; color: var(--text-muted);">
+          "Before this, any unhandled exception returned a giant Spring HTML error page. After the global handler, every error — validation failure, not found, server error — returns the same clean JSON shape with a proper status code."
+        </p>
+        <pre style="font-size:0.60rem; margin-top:1rem;"><code class="language-java">
+// Request DTO with validation annotations
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductRequestDTO {
+
+    @NotBlank(message = "Name is required")
+    private String name;
+
+    @NotBlank(message = "SKU is required")
+    private String sku;
+
+    @NotNull(message = "Price is required")
+    @Positive(message = "Price must be greater than zero")
+    private BigDecimal price;
+
+    private String description;
+}
+
+// Global exception handler
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleValidation(
+            MethodArgumentNotValidException ex) {
+        List&lt;String&gt; errors = ex.getBindingResult()
+            .getFieldErrors().stream()
+            .map(e -&gt; e.getField() + ": " + e.getDefaultMessage())
+            .toList();
+
+        return ResponseEntity.badRequest()
+            .body(new ErrorResponse(400, "Validation failed", errors));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity&lt;ErrorResponse&gt; handleNotFound(
+            ResourceNotFoundException ex) {
+        return ResponseEntity.status(404)
+            .body(new ErrorResponse(404, ex.getMessage(), null));
+    }
+}
+        </code></pre>
+      </article>
+
+      <!-- Swagger -->
+      <article aria-labelledby="art-swagger" class="blue-accent">
+        <div class="art_swagger_title_img">
+          <h3 id="art-swagger">Swagger / OpenAPI Documentation</h3>
+          <div class="learnings_img_btn_box">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+        </div>
+        <span class="article-sub">An API without documentation is a black box</span>
+        <p>
+          One thing you don't need to worry about in a Thymeleaf app: the form tells the user what fields exist. In a REST API, nothing is visible unless you document it. I integrated SpringDoc OpenAPI so every endpoint, parameter, and response schema is auto-generated and browsable at <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">/swagger-ui.html</code>.
+        </p>
+        <p style="margin-top:0.9rem;">
+          It also made testing faster — instead of writing curl commands by hand during development, I could test directly from the browser with real request examples. Documentation and dev tool in one.
+        </p>
+        <pre style="font-size:0.60rem; margin-top:1rem;"><code class="language-java">
+// pom.xml dependency
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+    &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
+    &lt;version&gt;2.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+// Annotating the controller for richer docs
+@Operation(summary = "Get all active products",
+           description = "Returns a paginated list of active products")
+@ApiResponse(responseCode = "200", description = "OK")
+@GetMapping
+public ResponseEntity&lt;Page&lt;ProductResponseDTO&gt;&gt; getAll(
+        @ParameterObject Pageable pageable) {
+    return ResponseEntity.ok(productService.findAllActive(pageable));
+}
+        </code></pre>
+      </article>
+
+    </section>
+
+    <!-- WHAT I'D DO DIFFERENTLY -->
+    <section class="differently" aria-labelledby="differently-heading">
+      <h2 id="differently-heading">What I'd do differently</h2>
+      <ul class="styled">
+        <li><strong style="color:var(--text-heading);">JWT Authentication from the start.</strong> Security is currently in the roadmap. Adding it mid-project means touching a lot of files that were already written without it in mind.</li>
+        <li><strong style="color:var(--text-heading);">Integration tests, not just manual Swagger testing.</strong> Swagger is fast during development, but a proper test suite with MockMvc would have been more reliable for catching regressions.</li>
+        <li><strong style="color:var(--text-heading);">Stricter DTO separation earlier.</strong> I reused some DTOs across create and update operations. They're subtly different enough that they should have been separate from day one.</li>
+      </ul>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="closing" aria-labelledby="closing-heading">
+      <h2 id="closing-heading" style="font-size:1.2rem;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2rem;">The bigger picture</h2>
+      <blockquote>
+        SupplyFlow taught me how to build a system. StockFlow is teaching me how to design one.
+      </blockquote>
+      <p class="closing-note">StockFlow · Built with Spring Boot · REST API · In Active Development</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>StockFlow &mdash; Case Study &mdash; Spring Boot &middot; Spring Data JPA &middot; REST API &middot; Swagger &middot; MySQL</p>
+  </footer>
+
+  
+  <script src="static/js/nav.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

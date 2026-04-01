@@ -1,414 +1,735 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SupplyFlow — The Story Behind the Code</title>
-  <link href="static/style/supply-flow.css" rel="stylesheet">
-  <link href="static/style/roles-modal.css" rel="stylesheet">
-  <link href="static/style/invitation-modal.css" rel="stylesheet">
-  <link href="static/style/architecture-modal.css" rel="stylesheet">
-  <link href="static/style/thymeleaf-ajax-mail.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SupplyFlow — The Story Behind the Code</title>
+    <link href="static/style/supply-flow.css" rel="stylesheet" />
+    <link href="static/style/roles-modal.css" rel="stylesheet" />
+    <link href="static/style/invitation-modal.css" rel="stylesheet" />
+    <link href="static/style/architecture-modal.css" rel="stylesheet" />
+    <link href="static/style/thymeleaf-ajax-mail.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    />
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
 
-  <div id="nav-placeholder"></div>
-  <header>
-    <div class="tag">Case Study · Spring Boot Project</div>
-    <h1>SupplyFlow — <em>The Story</em><br>Behind the Code</h1>
-    <p class="subtitle">A system built by someone who lived the broken workflow first.</p>
-  </header>
-
-  <main>
-    <!-- WHY I BUILT THIS -->
-    <section class="intro" aria-labelledby="why-heading">
-      <h2 id="why-heading">Why I built this</h2>
-      <p>
-        I spent years working in housekeeping. I watched firsthand how supply requests fell apart — someone filled out a PDF wrong, another person printed the wrong version, a supervisor approved something that was already out of stock. Nobody's fault really. Just a broken process held together with paper and memory.
+    <header>
+      <div class="tag">Case Study · Spring Boot Project</div>
+      <h1>SupplyFlow — <em>The Story</em><br />Behind the Code</h1>
+      <p class="subtitle">
+        A system built by someone who lived the broken workflow first.
       </p>
-      <p style="margin-top:1rem;">
-        When I started learning Spring Boot, I didn't have to look far for a problem to solve. I already lived it. SupplyFlow is what happens when you understand a broken workflow from the inside and finally have the tools to fix it.
-      </p>
-    </section>
+    </header>
 
-    <!-- THE PROBLEM -->
-    <section class="problem" aria-labelledby="problem-heading">
-      <h2 id="problem-heading">The problem it solves</h2>
-      <p>Before a system like this, a housekeeping team might manage supply requests like this:</p>
-      <article class="problem_box">
-          <ul class="styled" style="margin-bottom:1.5rem;">
+    <main>
+      <!-- WHY I BUILT THIS -->
+      <section class="intro" aria-labelledby="why-heading">
+        <h2 id="why-heading">Why I built this</h2>
+        <p>
+          I spent years working in housekeeping. I watched firsthand how supply
+          requests fell apart — someone filled out a PDF wrong, another person
+          printed the wrong version, a supervisor approved something that was
+          already out of stock. Nobody's fault really. Just a broken process
+          held together with paper and memory.
+        </p>
+        <p style="margin-top: 1rem">
+          When I started learning Spring Boot, I didn't have to look far for a
+          problem to model. I already lived it. SupplyFlow is what happens when
+          you understand a broken workflow from the inside and finally have the
+          tools to start thinking through it.
+        </p>
+      </section>
+
+      <!-- THE PROBLEM -->
+      <section class="problem" aria-labelledby="problem-heading">
+        <h2 id="problem-heading">The problem it solves</h2>
+        <p>
+          Before a system like this, a housekeeping team might manage supply
+          requests like this:
+        </p>
+        <article class="problem_box">
+          <ul class="styled" style="margin-bottom: 1.5rem">
             <li>Staff fills out a PDF or sends a WhatsApp message</li>
             <li>Supervisor approves (or forgets to)</li>
             <li>Order gets sent to the wrong supplier, or not at all</li>
             <li>Nobody knows what's in stock until it runs out</li>
-        </ul>
-        <div class="problem_img_box_grid">
-          <figure>
-            <img src="static/img/deliver-paper-work.webp" alt="A woman delivering a paper work at the ofice">
-          </figure>
-        </div>
-      </article>
-      <p>
-        SupplyFlow replaced that with a structured, role-based system where every request is tracked, every user has a defined role, and nothing moves without proper validation.
-      </p>
-      <div>
-        <span class="stat-pill">~90% fewer invalid submissions</span>
-        <span class="stat-pill">Role-based access</span>
-        <span class="stat-pill">Full request tracking</span>
-      </div>
-    </section>
-
-    <!-- WHAT I LEARNED -->
-    <section class="learnings" aria-labelledby="learned-heading">
-      <h2 id="learned-heading">What I learned building it</h2>
-      <article aria-labelledby="art-roles">
-        <div class="learning_title_img">
-          <h3 id="art-roles">Roles and Security</h3>
-          <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-users"></i>
-            <button style="font-size: 0.60rem;">Roles UI Demo</button>
+          </ul>
+          <div class="problem_img_box_grid">
+            <figure>
+              <img
+                src="static/img/deliver-paper-work.webp"
+                alt="A woman delivering a paper work at the office"
+              />
+            </figure>
           </div>
-        </div>
-        <span class="article-sub">Learning that "who can do what" is harder than it looks</span>
+        </article>
         <p>
-          I knew I needed roles. What I didn't expect was how much complexity lives inside that simple idea. ADMIN, SUPERVISOR, CONCIERGE — each one sees a different version of the app. An admin manages users and generates invitation codes. A supervisor oversees requests. A concierge can only see their own profile and create requests.
+          SupplyFlow replaced that with a structured, role-based system where
+          every request is tracked, every user has a defined role, and nothing
+          moves without proper validation.
         </p>
-        <p style="margin-top:0.9rem;">
-          I used Spring Security with <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">HttpSecurity</code> for route-level filtering and <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@PreAuthorize</code> at the method level. Security isn't one layer — it's several working together.
-        </p><br>
-        <h3>AuthenticationSuccessHandler Implementation</h3>
-        <p style="margin-top:0.9rem; font-style: italic">
-          "After login, instead of redirecting everyone to the same page, I implemented a custom AuthenticationSuccessHandler that reads the user's role and sends them where they actually belong — a concierge lands on their own profile, an admin on the user list. Security and UX working together."
-        </p>
-        <pre style="font-size:0.60rem;"><code class="language-java">
+        <div>
+          <span class="stat-pill">~90% fewer invalid submissions</span>
+          <span class="stat-pill">Role-based access</span>
+          <span class="stat-pill">Full request tracking</span>
+        </div>
+      </section>
+
+      <!-- WHAT I LEARNED -->
+      <section class="learnings" aria-labelledby="learned-heading">
+        <h2 id="learned-heading">What I learned building it</h2>
+
+        <!-- ROLES AND SECURITY -->
+        <article aria-labelledby="art-roles">
+          <div class="learning_title_img">
+            <h3 id="art-roles">Roles and Security</h3>
+            <div class="learnings_img_btn_box">
+              <i class="fa-solid fa-users"></i>
+            </div>
+          </div>
+          <span class="article-sub"
+            >Learning that "who can do what" is harder than it looks</span
+          >
+          <p>
+            I knew I needed roles. What I didn't expect was how much complexity
+            lives inside that simple idea. ADMIN, SUPERVISOR, CONCIERGE — each
+            one sees a different version of the app. An admin manages users and
+            generates invitation codes. A supervisor oversees requests. A
+            concierge can only see their own profile and create requests.
+          </p>
+          <p style="margin-top: 0.9rem">
+            I used Spring Security with
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent);
+                font-size: 0.88rem;
+              "
+              >HttpSecurity</code
+            >
+            for route-level filtering and
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent);
+                font-size: 0.88rem;
+              "
+              >@PreAuthorize</code
+            >
+            at the method level. Security isn't one layer — it's several working
+            together.
+          </p>
+
+          <!-- ROLES GRID — inline -->
+          <div class="modal-roles-grid" style="margin-top: 1.5rem">
+            <div class="modal-role-card">
+              <i class="fa-solid fa-shield-halved"></i>
+              <strong>Admin</strong>
+              <ul>
+                <li>Manages users</li>
+                <li>Generates invite codes</li>
+                <li>Full access</li>
+              </ul>
+            </div>
+            <div class="modal-role-card">
+              <i class="fa-solid fa-user-tie"></i>
+              <strong>Supervisor</strong>
+              <ul>
+                <li>Views all requests</li>
+                <li>Approves or rejects</li>
+                <li>No user management</li>
+              </ul>
+            </div>
+            <div class="modal-role-card">
+              <i class="fa-solid fa-broom"></i>
+              <strong>Concierge</strong>
+              <ul>
+                <li>Creates requests</li>
+                <li>Views own profile</li>
+                <li>Limited access</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- VIDEO — inline, debajo del grid -->
+          <div class="roles-video-box" style="margin-top: 1.5rem">
+            <video autoplay muted controls width="100%">
+              <source src="static/video/supplyFlow-demo.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          <!-- CÓDIGO TÉCNICO -->
+          <h3 style="margin-top: 2rem">
+            AuthenticationSuccessHandler Implementation
+          </h3>
+          <p style="margin-top: 0.9rem; font-style: italic">
+            "After login, instead of redirecting everyone to the same page, I
+            implemented a custom AuthenticationSuccessHandler that reads the
+            user's role and sends them where they actually belong — a concierge
+            lands on their own profile, an admin on the user list. Security and
+            UX working together."
+          </p>
+          <pre style="font-size: 0.6rem"><code class="language-java">
 @Override
-  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-    Authentication authentication) throws IOException, ServletException {
-      String redirectURL = request.getContextPath();
+public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+  Authentication authentication) throws IOException, ServletException {
+    String redirectURL = request.getContextPath();
 
-      var authorities = authentication.getAuthorities();
-        
-      boolean isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-      boolean isSupervisor = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPERVISOR"));
-      boolean isConcierge = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CONCIERGE"));
-        
-      if (isAdmin) {
-        redirectURL = "/user/list";
-      } else if (isSupervisor) {
-        redirectURL = "/user/list"; // solo vistas, controlado con reglas abajo
-      } else if (isConcierge) {
-        String email = authentication.getName(); // es el email (username)
-        User u = userService.findByEmail(email);
-        if(u != null && u.getIsActive() != null && u.getIsActive()) {
-          redirectURL = "/user/view/" + u.getId();
-          }
-            
-      } else {
-      // fallback razonable
+    var authorities = authentication.getAuthorities();
+
+    boolean isAdmin      = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+    boolean isSupervisor = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_SUPERVISOR"));
+    boolean isConcierge  = authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CONCIERGE"));
+
+    if (isAdmin) {
       redirectURL = "/user/list";
+    } else if (isSupervisor) {
+      redirectURL = "/user/list";
+    } else if (isConcierge) {
+      String email = authentication.getName();
+      User u = userService.findByEmail(email);
+      if (u != null && u.getIsActive() != null && u.getIsActive()) {
+        redirectURL = "/user/view/" + u.getId();
       }
-       
-		
-		
-		response.sendRedirect(redirectURL);
-	}
+    } else {
+      redirectURL = "/user/list";
+    }
 
+    response.sendRedirect(redirectURL);
+}
         </code></pre>
-      </article>
-      <!-- Invitation -->
-      <article aria-labelledby="art-invite" class="blue-accent">
-        <div class="art_invite_title_img">
-        <h3 id="art-invite">The Invitation Code System</h3>
-          <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-key"></i>
-            <button style="font-size: 0.60rem;">Invitation UI Demo</button>
+        </article>
+
+        <!-- INVITATION CODE SYSTEM -->
+        <article aria-labelledby="art-invite" class="blue-accent">
+          <div class="art_invite_title_img">
+            <h3 id="art-invite">The Invitation Code System</h3>
+            <div class="learnings_img_btn_box">
+              <i class="fa-solid fa-key"></i>
+            </div>
           </div>
-        </div>
-        <span class="article-sub">Solving onboarding without open registration</span>
-        <p>
-          I didn't want anyone to be able to register freely. In a real company, you don't want random accounts appearing. So I built an invitation code system: an admin generates a unique code, shares it with a new employee, and that code can only be used once.
-        </p>
-        <p style="margin-top:0.9rem;">
-          The code gets normalized (trimmed, uppercased) before lookup, marked as used after registration, and linked to the user who consumed it. It taught me about controlled workflows — not just "can this user log in" but "should this user exist at all."
-        </p><br>
-        <h3 aria-labelledby="art-invite" class="blue-accent">The core implementation</h3>
-        <p style="margin-top:0.9rem; font-style: italic">
-          "The invitation code is generated internally by an admin, then used on the public registration form to let a new employee in. Once consumed, the code is marked as used and linked to that user — making onboarding controlled and traceable. The whole operation is @Transactional, so if anything fails mid-process, nothing gets saved halfway."
-        </p>
-        <pre style="font-size:0.60rem;"><code class="language-java">
+          <span class="article-sub"
+            >Solving onboarding without open registration</span
+          >
+          <p>
+            I designed this one myself. The problem: I needed a public
+            registration endpoint, but only for people actually hired. My
+            solution: an admin generates a unique code, shares it with the new
+            employee, and registration only works with that code. But even after
+            signing up, the employee can't log in until the admin assigns their
+            role and links them to a supply company. Two gates, not one. It
+            taught me that access control isn't just authentication, it's about
+            whether a user is ready to exist in the system at all.
+          </p>
+          <p style="margin-top: 0.9rem">
+            The code gets normalized (trimmed, uppercased) before lookup, marked
+            as used after registration, and linked to the user who consumed it.
+            It taught me about controlled workflows — not just "can this user
+            log in" but "should this user exist at all."
+          </p>
+
+          <!-- INVITATION CARD — inline, sin modal -->
+          <div class="modal-invitation-grid" style="margin-top: 1.5rem">
+            <div class="modal-invitation-card">
+              <i class="fa-solid fa-shield-halved"></i>
+              <strong>Admin</strong>
+              <ul>
+                <li>Manages users</li>
+                <li>Generates invite codes</li>
+                <li>Full access</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- VIDEO — inline, debajo de la card -->
+          <div class="modal-video-box" style="margin-top: 1.5rem">
+            <video autoplay muted controls width="100%">
+              <source
+                src="static/video/supplyFlow-inv-demo.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+
+          <!-- CÓDIGO TÉCNICO -->
+          <h3 style="margin-top: 2rem">The core implementation</h3>
+          <p style="margin-top: 0.9rem; font-style: italic">
+            "The invitation code is generated internally by an admin, then used
+            on the public registration form to let a new employee in. Once
+            consumed, the code is marked as used and linked to that user —
+            making onboarding controlled and traceable. The whole operation is
+            @Transactional, so if anything fails mid-process, nothing gets saved
+            halfway."
+          </p>
+          <pre style="font-size: 0.6rem"><code class="language-java">
 @Override
 @Transactional
 public User registerWithInvitation(UserFormDTO form) {
   String raw = form.getInvitationCode();
   if (raw == null || raw.isBlank()) {
-		throw new IllegalArgumentException("Invitation code is required");
-	}
-	String codeStr = raw.trim().toUpperCase();
+    throw new IllegalArgumentException("Invitation code is required");
+  }
+  String codeStr = raw.trim().toUpperCase();
 
-	// Search the row on invitation_code
-	InvitationCode inv = codeDao.findByCode(codeStr);
-	if (inv == null)
+  InvitationCode inv = codeDao.findByCode(codeStr);
+  if (inv == null)
     throw new IllegalArgumentException("Invitation code not found");
-		if (Boolean.TRUE.equals(inv.getIsUsed()))
-		  throw new IllegalStateException("Invitation code already used");
+  if (Boolean.TRUE.equals(inv.getIsUsed()))
+    throw new IllegalStateException("Invitation code already used");
 
-	// Create user
-	User user = loadOrCreate(form);
-	userMapper.applyScalarFields(user, form);
-	assignedRole(user, form);
+  User user = loadOrCreate(form);
+  userMapper.applyScalarFields(user, form);
+  assignedRole(user, form);
 
-	userDao.save(user);
+  userDao.save(user);
 
-	inv.setIsUsed(true);
-	inv.setIsUsedBy(user);
-	codeDao.save(inv);
+  inv.setIsUsed(true);
+  inv.setIsUsedBy(user);
+  codeDao.save(inv);
 
-	return user;
-	}
-        </code></pre>
-      </article>
-      <!--DTO's -->
-      <article aria-labelledby="art-dto">
-        <div class="art_dto_title_img">
-        <h3 id="art-dto">DTO's and Mapper</h3>
-          <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-code"></i>
+  return user;
+}
+  </code></pre>
+        </article>
+
+        <!-- DTO'S AND MAPPER -->
+        <article aria-labelledby="art-dto">
+          <div class="art_dto_title_img">
+            <h3 id="art-dto">DTO's and Mapper</h3>
+            <div class="learnings_img_btn_box">
+              <i class="fa-solid fa-code"></i>
+            </div>
           </div>
-        </div>
-        <span class="article-sub">Doing it the hard way first</span>
-        <p>
-          I built every DTO and Mapper by hand, the constructor, the setters, all of it manually. It worked. But it was repetitive and verbose. When I moved to StockFlow, I used Lombok and, a single <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">@Builder</code> annotation replaced what used to be 40+ lines of boilerplate.
-        </p>
-        <p style="margin-top:0.9rem;">
-          That contrast taught me something I couldn't have learned from a tutorial: you have to feel the pain of the problem before a solution really sticks.
-        </p>
-<pre style="font-size:0.60rem; max-height: 300px; overflow-y: auto;"><code class="language-java">
+          <span class="article-sub">Doing it the hard way first</span>
+          <p>
+            Looking back, my DTOs are verbose. I had a separate one for the
+            form, another for the view, and another when I needed to load
+            related entities. That's actually the right approach, you don't want
+            your JPA entities traveling through HTTP requests but, writing every
+            constructor, every setter, and every null check by hand made it feel
+            messy fast. I also implemented the Builder Pattern manually a nested
+            inner class inside the DTO that chained setters and returned itself,
+            so I could build objects in one clean line. I liked how it read.
+            What I didn't know yet was that @Builder from Lombok generates
+            exactly that with one annotation. Writing it by hand first made me
+            actually understand what that annotation does under the hood. That's
+            the part Lombok fixed in StockFlow, the boilerplate disappears, but
+            now I know what's behind it.
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent);
+                font-size: 0.88rem;
+              "
+              >@Builder</code
+            >
+            annotation replaced what used to be 40+ lines of boilerplate.
+          </p>
+          <p style="margin-top: 0.9rem">
+            That contrast taught me something I couldn't have learned from a
+            tutorial: you have to feel the pain of the problem before a solution
+            really sticks.
+          </p>
+          <pre
+            style="font-size: 0.6rem; max-height: 300px; overflow-y: auto"
+          ><code class="language-java">
 public class UserViewDTO {
 
-	private Long id;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String phone;
-	private String password;
-	private Boolean isActive;
-	private Date createAt;
+  private Long id;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String phone;
+  private String password;
+  private Boolean isActive;
+  private Date createAt;
 
-	private AuthorityViewDTO roleAuthority;
+  private AuthorityViewDTO roleAuthority;
+  private CustomerAccountViewDTO customerAccount;
+  private CustomerSiteViewDTO customerSite;
+  private List&lt;RequestDTO&gt; requests;
 
-	private CustomerAccountViewDTO customerAccount;
+  public Long getId() { return id; }
+  public void setId(Long id) { this.id = id; }
 
-	private CustomerSiteViewDTO customerSite;
-	
-	private List<RequestDTO> requests;
-	
-	public Long getId() {
-		return id;
-	}
+  public String getFirstNameLabel() {
+    return (firstName == null || firstName.isBlank()) ? "No assigned" : firstName;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  // ...
+}
 
-	public String getFirstNameLabel() {
-		return (firstName == null || firstName.isBlank()) ? "No asigned" : firstName;
-	}
-...
-// Mapper for the user detail view. User - Role - and others..
+// Mapper for the user detail view
 @Override
-	public UserViewDTO toDTO(User user) {
-		if (user == null) return null;
+public UserViewDTO toDTO(User user) {
+  if (user == null) return null;
 
-	    UserViewDTO dto = new UserViewDTO();
-	    dto.setId(user.getId());
-	    dto.setFirstName(user.getFirstName());
-	    dto.setLastName(user.getLastName());
-	    dto.setEmail(user.getEmail());
-	    dto.setPhone(user.getPhone());
-	    dto.setCreateAt(user.getCreateAt());
-	    dto.setIsActive(user.getIsActive());
+  UserViewDTO dto = new UserViewDTO();
+  dto.setId(user.getId());
+  dto.setFirstName(user.getFirstName());
+  dto.setLastName(user.getLastName());
+  dto.setEmail(user.getEmail());
+  dto.setPhone(user.getPhone());
+  dto.setCreateAt(user.getCreateAt());
+  dto.setIsActive(user.getIsActive());
 
-	    // Role (null-safe)
-	    Role role = user.getRole();
-	    if (role != null) {
-	        AuthorityViewDTO auth = new AuthorityViewDTO();
-	        auth.setId(role.getId());
-	        auth.setRole(role.getAuthority());
-	        dto.setAuthority(auth);
-	    } else {
-	        dto.setAuthority(null);
-	    }
+  // Role (null-safe)
+  Role role = user.getRole();
+  if (role != null) {
+    AuthorityViewDTO auth = new AuthorityViewDTO();
+    auth.setId(role.getId());
+    auth.setRole(role.getAuthority());
+    dto.setAuthority(auth);
+  } else {
+    dto.setAuthority(null);
+  }
 
-	    // Site (null-safe)
-	    CustomerSite site = user.getAssignedSite(); // ← una sola lectura
-	    if (site != null) {
-	        CustomerSiteViewDTO s = new CustomerSiteViewDTO();
-	        s.setId(site.getId());
-	        s.setAddress(site.getAddress());
-	        s.setCode(site.getExternalCode());
-	        dto.setCustomerSite(s);
-	    } else {
-	        dto.setCustomerSite(null);
-	    }
-	    CustomerAccount cust = user.getAssignedCustomer();
-	    if (cust != null) {
-	        CustomerAccountViewDTO a = new CustomerAccountViewDTO();
-	        a.setId(cust.getId());
-	        a.setName(cust.getName());
-	        a.setCode(cust.getExternalCode());
-	        a.setEmail(cust.getEmail());
-	        dto.setCustomerAccount(a);
-	    } else {
-	        dto.setCustomerAccount(null);
-	    }
+  // Site (null-safe)
+  CustomerSite site = user.getAssignedSite();
+  if (site != null) {
+    CustomerSiteViewDTO s = new CustomerSiteViewDTO();
+    s.setId(site.getId());
+    s.setAddress(site.getAddress());
+    s.setCode(site.getExternalCode());
+    dto.setCustomerSite(s);
+  } else {
+    dto.setCustomerSite(null);
+  }
 
-	    return dto;
-	}
+  CustomerAccount cust = user.getAssignedCustomer();
+  if (cust != null) {
+    CustomerAccountViewDTO a = new CustomerAccountViewDTO();
+    a.setId(cust.getId());
+    a.setName(cust.getName());
+    a.setCode(cust.getExternalCode());
+    a.setEmail(cust.getEmail());
+    dto.setCustomerAccount(a);
+  } else {
+    dto.setCustomerAccount(null);
+  }
+
+  return dto;
 }
         </code></pre>
-      </article>
-      <!-- JPA -->
-      <article aria-labelledby="art-jpa" class="blue-accent">
-        <div class="art_jpa_title_img">
-        <h3 id="art-jpa">JPA - Keeping it honest</h3>
-          <div class="learnings_img_btn_box">
-            <i class="fa-brands fa-java"></i>
+        </article>
+
+        <!-- JPA -->
+        <article aria-labelledby="art-jpa" class="blue-accent">
+          <div class="art_jpa_title_img">
+            <h3 id="art-jpa">JPA - Keeping it honest</h3>
+            <div class="learnings_img_btn_box">
+              <i class="fa-brands fa-java"></i>
+            </div>
           </div>
-        </div>
-        <span class="article-sub">Using only what I understood</span>
-        <p>
-          Most of my database interactions used the basics - <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">save()</code>, <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">findById()</code>, <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">findByEmail()</code>. Where it got more interesting was when I needed to pull data across multiple joined tables, for those I used <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">@Query</code> and wrote the JPQL manually. It wasn't always pretty, but I understood exactly what it was doing. That matters more to me than using a feature I don't fully understand.
-        </p>
-        <pre style="font-size:0.60rem; max-height: 300px; overflow-y: auto;"><code class="language-java">
+          <span class="article-sub">Using only what I understood</span>
+          <p>
+            Most of my database interactions used the basics —
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent2);
+                font-size: 0.88rem;
+              "
+              >save()</code
+            >,
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent2);
+                font-size: 0.88rem;
+              "
+              >findById()</code
+            >,
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent2);
+                font-size: 0.88rem;
+              "
+              >findByEmail()</code
+            >. Where it got more interesting was when I needed to pull data
+            across multiple joined tables; for those I used
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent2);
+                font-size: 0.88rem;
+              "
+              >@Query</code
+            >
+            and wrote the JPQL manually. It wasn't always pretty, but I
+            understood exactly what it was doing. That matters more to me than
+            using a feature I don't fully understand.
+          </p>
+          <pre
+            style="font-size: 0.6rem; max-height: 300px; overflow-y: auto"
+          ><code class="language-java">
 @Override
-	@Transactional(readOnly = true)
-	public Page<User> findAll(Pageable pageable) {
-		return userDao.findAll(pageable);
-	}
+@Transactional(readOnly = true)
+public Page&lt;User&gt; findAll(Pageable pageable) {
+  return userDao.findAll(pageable);
+}
 
-	@Override
-	@Transactional(readOnly = true)
-	public User findOne(Long id) {
-		return userDao.findById(id).orElse(null);
-	}
+@Override
+@Transactional(readOnly = true)
+public User findOne(Long id) {
+  return userDao.findById(id).orElse(null);
+}
 
-	@Override
-	@Transactional(readOnly = true)
-	public User findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return userDao.findByEmail(email);
-	}
+@Override
+@Transactional(readOnly = true)
+public User findByEmail(String email) {
+  return userDao.findByEmail(email);
+}
 
-	// Brings all user requests for the user id
-	@Override
-	@Transactional(readOnly = true)
-	public User fetchByIdWithRequests(Long id) {
-		// TODO Auto-generated method stub
-		return userDao.fetchByIdWithRequests(id);
+@Override
+@Transactional(readOnly = true)
+public User fetchByIdWithRequests(Long id) {
+  return userDao.fetchByIdWithRequests(id);
+}
 
-  // Using Query anotation example
+// Repository
 @Query("select u from User u left join fetch u.requests r where u.id=?1")
-	public User fetchByIdWithRequests(Long id);
+public User fetchByIdWithRequests(Long id);
 
-	// === Allows authentication and permissions using email
-	public User findByEmail(String email);
+public User findByEmail(String email);
 
-	@Query("""
-			  select distinct u from User u
-			   left join fetch u.role
-			   left join fetch u.assignedSite s
-			   left join fetch s.customer
-			   left join fetch u.requests r
-
-			""")
-	}
+@Query("""
+  select distinct u from User u
+  left join fetch u.role
+  left join fetch u.assignedSite s
+  left join fetch s.customer
+  left join fetch u.requests r
+""")
+public List&lt;User&gt; fetchAllWithDetails();
         </code></pre>
-      </article>
-      <!--Thymeleaf - Ajax - JavaMail-->
-      <article aria-labelledby="art-thymeleaf">
-        <div class="learning_title_img">
-          <h3 id="art-thymeleaf">Thymeleaf + jQuery AJAX + JavaMail</h3>
-          <!-- En el article de Thymeleaf -->
-        <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-leaf"></i>
-            <button style="font-size: 0.60rem;" data-modal="thymeleaf">UI Demo</button>
-        </div>
-        </div>
-        <span class="article-sub">Making forms feel alive</span>
-        <p>
-          The frontend is server-side rendered with Thymeleaf, which means every page reload was a full round trip. I solved the clunky UX with jQuery AJAX for autocomplete and a few form interactions. It's not a React app. It's not a SPA. But it works, it's fast enough, and it taught me the difference between "page renders data" and "page reacts to data."
-        </p>
-        <p style="margin-top:0.9rem;">
-          I also implemented native email delivery using JavaMail — when a supply request is submitted, a confirmation is automatically sent to the company's internal email address. No third-party service, no abstraction layer. Just SMTP configuration, a
-          <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">MimeMessage</code> built by hand, and Spring's
-          <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.88rem;">JavaMailSender</code> doing the work. It was the first time I connected a backend action to something that lands in a real inbox.
-        </p>
-      </article>
+        </article>
 
-      <!-- Architecture -->
-      <article aria-labelledby="art-arch" class="blue-accent">
-        <div class="art_architecture_title_img">
-          <h3 id="art-architecture">Architecture</h3>
-          <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-building-columns"></i>
-            <button style="font-size: 0.60rem;">Architecture Diagram</button>
+        <!-- THYMELEAF + AJAX + JAVAMAIL -->
+        <article aria-labelledby="art-thymeleaf">
+          <div class="learning_title_img">
+            <h3 id="art-thymeleaf">Thymeleaf + jQuery AJAX + JavaMail</h3>
+            <div class="learnings_img_btn_box">
+              <i class="fa-solid fa-leaf"></i>
+            </div>
           </div>
-        </div>
-        <span class="article-sub">Why monolithic made sense</span>
-        <p>
-          I chose a monolithic MVC architecture intentionally. Not because I didn't know about microservices but, because for a project of this scope, splitting into services would have been complexity for its own sake. One codebase, one deployment, one database. Spring Boot's layered architecture (Controller → Service → Repository) gave me enough structure without over-engineering it.
+          <span class="article-sub">Making forms feel alive</span>
+          <p>
+            The frontend is server-side rendered with Thymeleaf, which means
+            every page reload was a full round trip. I solved the clunky UX with
+            jQuery AJAX for autocomplete and a few form interactions. It's not a
+            React app. It's not a SPA. But it works, it's fast enough, and it
+            taught me the difference between "page renders data" and "page
+            reacts to data."
+          </p>
+          <p style="margin-top: 0.9rem">
+            I also implemented native email delivery using JavaMail, when a
+            supply request is submitted, a confirmation is automatically sent to
+            the company's internal email address. No third-party service, no
+            abstraction layer. Just SMTP configuration, a
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent);
+                font-size: 0.88rem;
+              "
+              >MimeMessage</code
+            >
+            built by hand, and Spring's
+            <code
+              style="
+                font-family: var(--font-mono);
+                color: var(--accent);
+                font-size: 0.88rem;
+              "
+              >JavaMailSender</code
+            >
+            doing the work. It was the first time I connected a backend action
+            to something that lands in a real inbox.
+          </p>
+
+          <!-- FLOW CARDS — inline, sin modal -->
+          <div
+            class="modal-thymeleaf-ajax-mail-grid"
+            style="margin-top: 1.5rem"
+          >
+            <div class="modal-thymeleaf-ajax-mail-card">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <strong>Search</strong>
+              <ul>
+                <li>AJAX autocomplete</li>
+                <li>Live product lookup</li>
+                <li>No page reload</li>
+              </ul>
+            </div>
+            <div class="modal-thymeleaf-ajax-mail-card">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <strong>Persist</strong>
+              <ul>
+                <li>Items saved to DB</li>
+                <li>Linked to request</li>
+                <li>Tracked by status</li>
+              </ul>
+            </div>
+            <div class="modal-thymeleaf-ajax-mail-card">
+              <i class="fa-solid fa-envelope"></i>
+              <strong>Notify</strong>
+              <ul>
+                <li>JavaMail triggered</li>
+                <li>Sent to company inbox</li>
+                <li>MimeMessage via SMTP</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- VIDEO — inline, debajo de las cards -->
+          <div class="modal-video-box" style="margin-top: 1.5rem">
+            <video autoplay muted controls width="100%">
+              <source
+                src="static/video/supply-flow-ajax-thymeleaf-email.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </article>
+
+        <!-- ARCHITECTURE -->
+        <article aria-labelledby="art-arch" class="blue-accent">
+          <div class="art_architecture_title_img">
+            <h3 id="art-architecture">Architecture</h3>
+            <div class="learnings_img_btn_box">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+          </div>
+          <span class="article-sub">Why monolithic made sense</span>
+          <p>
+            I built this with a standard MVC structure — Controller, Service,
+            Repository. It's what I was learning at the time, and honestly it
+            was the right fit. One codebase, one database, everything in one
+            place. I didn't need anything more complex than that for what this
+            app does. I've since heard the word "microservices" a lot. I don't
+            have experience with them yet, but I understand now why structure
+            matters and, that's something I want to keep learning.
+          </p>
+          <p style="margin-top: 0.9rem">
+            The lesson I carry forward: match your architecture to your problem,
+            not to what sounds impressive.
+          </p>
+
+          <!-- ARCHITECTURE DIAGRAM — inline, sin modal -->
+          <div class="modal-architecture-grid" style="margin-top: 1.5rem">
+            <div class="modal-architecture-card">
+              <i class="fa-solid fa-building-columns"></i>
+              <strong>Architecture</strong>
+              <img
+                src="static/img/supplyflow_architecture_dark.svg"
+                alt="SupplyFlow architecture diagram"
+                style="width: 100%; margin-top: 0.75rem"
+              />
+            </div>
+          </div>
+        </article>
+      </section>
+      <!-- END: WHAT I LEARNED -->
+
+      <!-- WHAT I'D DO DIFFERENTLY -->
+      <section class="differently" aria-labelledby="differently-heading">
+        <h2 id="differently-heading">What I'd do differently</h2>
+        <ul class="styled">
+          <li>
+            <strong style="color: var(--text-heading)"
+              >Lombok from the start.</strong
+            >
+            The hand-built DTOs were a good learning exercise, but in a team or
+            production context, that's unnecessary friction.
+          </li>
+          <li>
+            <strong style="color: var(--text-heading)"
+              >More test coverage.</strong
+            >
+            I validated everything manually with the UI. A proper test suite
+            would have caught more edge cases faster.
+          </li>
+          <li>
+            <strong style="color: var(--text-heading)"
+              >Email integration.</strong
+            >
+            It's listed as a future improvement. The idea was to send order
+            confirmations via Gmail API. That's still on the list.
+          </li>
+          <li>
+            <strong style="color: var(--text-heading)">JWT.</strong>
+            JWT authentication. Right now the app uses Spring Security's
+            session-based login, which works. But I'd like to revisit this and
+            implement JWT — not because sessions are wrong, but because I want
+            to understand the difference from the inside.
+          </li>
+          <li>
+            <strong style="color: var(--text-heading)"
+              >Filters - search bar.</strong
+            >
+            Better filtering. SupplyFlow has no search bar. You scroll through
+            the list and hope it's short. I've since built filtering in
+            StockFlow using Spring Specifications, and going back to SupplyFlow
+            without it feels obvious now. That's probably the clearest sign of
+            growth, when your old project starts to bother you.
+          </li>
+        </ul>
+      </section>
+
+      <!-- CLOSING -->
+      <section class="closing" aria-labelledby="closing-heading">
+        <h2
+          id="closing-heading"
+          style="
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+          "
+        >
+          The bigger picture
+        </h2>
+        <blockquote>
+          The hardest part isn't the code. It's understanding the problem well
+          enough to know what to build.
+        </blockquote>
+        <p class="closing-note">
+          SupplyFlow · Built with Spring Boot · A real workflow, solved from the
+          inside.
         </p>
-        <p style="margin-top:0.9rem;">
-          The lesson I carry forward: match your architecture to your problem, not to what sounds impressive.
-        </p>
-      </article>
+      </section>
+    </main>
 
-    </section>
+    <footer>
+      <p>
+        SupplyFlow &mdash; Case Study &mdash; Spring Boot &middot; Thymeleaf
+        &middot; JPA &middot; Spring Security
+      </p>
+    </footer>
 
-    <!-- WHAT I'D DO DIFFERENTLY -->
-    <section class="differently" aria-labelledby="differently-heading">
-      <h2 id="differently-heading">What I'd do differently</h2>
-      <ul class="styled">
-        <li><strong style="color:var(--text-heading);">Lombok from the start.</strong> The hand-built DTOs were a good learning exercise, but in a team or production context, that's unnecessary friction.</li>
-        <li><strong style="color:var(--text-heading);">More test coverage.</strong> I validated everything manually with the UI. A proper test suite would have caught more edge cases faster.</li>
-        <li><strong style="color:var(--text-heading);">Email integration.</strong> It's listed as a future improvement. The idea was to send order confirmations via Gmail API. That's still on the list.</li>
-      </ul>
-    </section>
-
-    <!-- CLOSING -->
-    <section class="closing" aria-labelledby="closing-heading">
-      <h2 id="closing-heading" style="font-size:1.2rem;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2rem;">The bigger picture</h2>
-      <blockquote>
-        The hardest part isn't the code. It's understanding the problem well enough to know what to build.
-      </blockquote>
-      <p class="closing-note">SupplyFlow · Built with Spring Boot · A real workflow, solved from the inside.</p>
-    </section>
-    <!--MODALS-->
-    <!--Modal: Roles-->
-    <div id="roles-modal"></div>
-
-  <!--MODAL: Invitation-->
-    <div id="invitation-modal"></div>
-    <!--MODAL: Thymeleaf - Ajax - Mail-->
-    <div id="modal-thymeleaf-placeholder"></div>
-    <!--MODAL: Architecture-->
-    <div id="architecture-modal"></div>
-  </main>
-
-  <footer>
-    <p>SupplyFlow &mdash; Case Study &mdash; Spring Boot &middot; Thymeleaf &middot; JPA &middot; Spring Security</p>
-  </footer>
-
-<script src="static/js/nav.js"></script>
-<script src="static/js/roles-modal.js"></script>
-<script src="static/js/invitation-modal.js"></script>
-<script src="static/js/architecture-modal.js"></script>
-<script src="static/js/thymeleaf-ajax-mail-modal.js"></script>
-<script src="https://kit.fontawesome.com/TU_KIT_CODE.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-</body>
+    <script src="static/js/nav.js"></script>
+    <script
+      src="https://kit.fontawesome.com/TU_KIT_CODE.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
 </html>
