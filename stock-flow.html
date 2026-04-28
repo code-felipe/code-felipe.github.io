@@ -407,17 +407,22 @@
       <p>Any product-driven system — e-commerce, inventory management, catalog tools — needs a reliable backend layer to handle:</p>
       <article class="problem_box">
         <ul class="styled" style="margin-bottom:1rem;">
-          <li>Managing thousands of products without losing track of what's active vs. deleted</li>
-          <li>Filtering catalogs dynamically: by name, price range, or stock availability</li>
-          <li>Keeping inventory records separate from product data but always in sync</li>
-          <li>Returning clean, predictable JSON responses that any frontend can consume</li>
+          <li>Managing products and categories without losing track of what's active, discontinued, or soft-deleted</li>
+          <li>Keeping stock levels per store, independent from the product catalog</li>
+          <li>Processing orders from cart to fulfillment, with automatic stock deduction and restoration on cancellation</li>
+          <li>Recording payments internally without the complexity of a payment gateway</li>
+          <li>Controlling who can do what through role-based access</li>
+          <li>Filtering and paginating large catalogs dynamically by name, price, stock, or category</li>
         </ul>
       </article>
       <p>
-        StockFlow answers those needs with a structured REST API — clean endpoints, validated inputs, layered architecture, and soft deletion that preserves history without cluttering the active catalog.
+        StockFlow answers those needs with a structured REST API — clean endpoints, validated inputs, layered architecture, and a domain model designed to scale across multiple stores without duplicating product data.
       </p>
       <div>
         <span class="stat-pill">Full CRUD lifecycle</span>
+        <span class="stat-pill">Multi-store inventory</span>
+        <span class="stat-pill">Order & stock management </span>
+        <span class="stat-pill">Role-based access</span>
         <span class="stat-pill">Dynamic filtering</span>
         <span class="stat-pill">Soft deletion</span>
         <span class="stat-pill">Pagination & sorting</span>
