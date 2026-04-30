@@ -514,7 +514,7 @@ public ResponseEntity&lt;ProductResponseDTO&gt; create(
         <div class="art_filter_title_img">
           <h3 id="art-filter">Dynamic Filtering with Specifications</h3>
           <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-filter"></i>
+            <i class="fa-solid fa-filter" style="font-size: 3rem;"></i>
           </div>
         </div>
         <span class="article-sub">Building search that actually scales</span>
@@ -640,39 +640,48 @@ public ProductResponseDTO toDTO(Product p) {
         </code></pre>
       </article>
 
-      <!-- Soft Deletion -->
-      <article aria-labelledby="art-softdelete" class="blue-accent">
-        <div class="art_jpa_title_img">
-          <h3 id="art-softdelete">Soft Deletion</h3>
-          <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-trash-can-arrow-up"></i>
-          </div>
-        </div>
-        <span class="article-sub">Delete without losing history</span>
-        <p>
-          A real DELETE removes data forever. In most business systems, that's the wrong move — you might need to audit past orders, reference a deactivated product, or simply undo a mistake. Soft deletion solves this with a flag instead of a row removal.
-        </p>
-        <p style="margin-top:0.9rem;">
-          Every product has an <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">isActive</code> boolean. "Deleting" a product sets it to <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">false</code>. The repository always filters by <code style="font-family:var(--font-mono);color:var(--accent2);font-size:0.88rem;">isActive = true</code> by default — so deactivated records become invisible to the catalog without being gone from the database.
-        </p>
-        <pre style="font-size:0.60rem; margin-top:1rem;"><code class="language-java">
-// Repository: only return active products
-@Query("SELECT p FROM Product p WHERE p.isActive = true")
-Page&lt;Product&gt; findAllActive(Pageable pageable);
-
-// Service: soft delete
+      <!-- JWT - Spring Security -->
+     <article aria-labelledby="art-jwt" class="blue-accent">
+  <div class="art_jpa_title_img">
+    <h3 id="art-jwt">Spring Security & JWT</h3>
+    <div class="learnings_img_btn_box">
+      <i class="fa-solid fa-solid fa-key"></i>
+    </div>
+  </div>
+  <span class="article-sub">Stateless authentication with signed tokens</span>
+  <p>
+    Think of JWT as a signed badge. Once the user logs in, the server issues a badge with their identity and roles — then forgets about them. On every request, the badge is verified at the door. No session, no server memory, no database lookup. Just a mathematical signature check.
+  </p>
+  <p style="margin-top:0.9rem;">
+    Implemented on Spring Boot 4.0.2 with Spring Security 7.0.2 — a version with breaking changes from most available tutorials. The authorization filter acts as the doorman: it reads the badge, validates the signature, and hands the identity to Spring Security. Spring then decides what the user can access.
+  </p>
+  <pre style="font-size:0.60rem; margin-top:1rem;"><code class="language-java">
 @Override
-@Transactional
-public void softDelete(Long id) {
-    Product product = productDao.findById(id)
-        .orElseThrow(() -&gt; new ResourceNotFoundException(
-            "Product not found: " + id));
+protected void doFilterInternal(HttpServletRequest request,
+    HttpServletResponse response, FilterChain chain)
+    throws IOException, ServletException {
 
-    product.setIsActive(false);
-    productDao.save(product);
+    String header = request.getHeader(JWTService.HEADER_STRING);
+
+    if (!requiresAuthentication(header)) {
+        chain.doFilter(request, response);
+        return;
+    }
+
+    UsernamePasswordAuthenticationToken authentication = null;
+
+    if (jwtService.validate(header)) {
+        authentication = new UsernamePasswordAuthenticationToken(
+            jwtService.getUsername(header), null,
+            jwtService.getRoles(header));
+    }
+
+    SecurityContextHolder.getContext()
+        .setAuthentication(authentication);
+    chain.doFilter(request, response);
 }
-        </code></pre>
-      </article>
+  </code></pre>
+</article>
 
       <!-- Validation + Exception Handling -->
       <article aria-labelledby="art-validation">
@@ -740,7 +749,7 @@ public class GlobalExceptionHandler {
         <div class="art_swagger_title_img">
           <h3 id="art-swagger">Swagger / OpenAPI Documentation</h3>
           <div class="learnings_img_btn_box">
-            <i class="fa-solid fa-book-open"></i>
+            <i class="fa-solid fa-book-open" style="font-size: 3rem;"></i>
           </div>
         </div>
         <span class="article-sub">An API without documentation is a black box</span>
